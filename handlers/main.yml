@@ -1,0 +1,6 @@
+---
+
+- name: 'ansible-midonet-insights-analytics.handlers.main: Restart MidoNet Analytics'
+  service:
+    name: 'midonet-analytics'
+    state: restarted

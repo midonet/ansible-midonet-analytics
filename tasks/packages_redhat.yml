@@ -1,0 +1,16 @@
+---
+
+- name: 'ansible-midonet-insights-analytics.tasks.packages_redhat: Install Python PIP'
+  yum:
+    name: '{{ item }}'
+    state: present
+  with_items:
+    - 'midonet-analytics'
+    - 'midonet-tools'
+    - 'python-pip'
+
+- name: 'ansible-midonet-insights-analytics.tasks.packages_redhat: Install elasticsearch-curator'
+  pip:
+    name: 'elasticsearch-curator'
+    state: present
+    version: '3.5'

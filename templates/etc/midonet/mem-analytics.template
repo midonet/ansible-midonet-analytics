@@ -1,0 +1,8 @@
+clio.enabled : {{ midonet_insights_analytics_clio_enabled|ternary('true','false') }}
+clio.service.udp_port : {{ midonet_insights_analytics_clio_service_udp_port }}
+clio.service.encoding : "{{ midonet_insights_analytics_clio_service_encoding }}"
+clio.target.udp_endpoint : "{{ midonet_insights_analytics_clio_target_udp_endpoint }}"
+clio.data.fields : {{ midonet_insights_analytics_clio_data_fields }}
+calliope.enabled : {{ midonet_insights_analytics_calliope_enabled|ternary('true','false') }}
+calliope.service.ws_port : {{ midonet_insights_analytics_calliope_service_ws_port }}
+calliope.auth.ssl.enabled : {{ midonet_insights_analytics_calliope_auth_ssl_enabled|ternary('true','false') }}

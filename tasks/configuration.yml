@@ -1,0 +1,38 @@
+---
+
+- assert:
+    that: zookeeper_hosts is defined
+    msg: 'ansible-midonet-insights-analytics.tasks.configuration: This role requires "zookeeper_hosts" to be defined'
+
+- assert:
+    that: cassandra_hosts is defined
+    msg: 'ansible-midonet-insights-analytics.tasks.configuration: This role requires "cassandra_hosts" to be defined'
+
+- name: 'ansible-midonet-insights-analytics.tasks.configuration: Template MidoNet configuration file'
+  template:
+    dest: '/{{ item }}'
+    group: 'root'
+    mode: 0644
+    owner: 'root'
+    src: '{{ item }}'
+  notify: 'ansible-midonet-insights-analytics.handlers.main: Restart MidoNet Analytics'
+  with_items:
+    - 'etc/midonet/midonet.conf'
+
+- name: mn-conf mem-analytics default template
+  template:
+    dest: '/{{ item }}'
+    group: 'root'
+    mode: 0644
+    owner: 'root'
+    src: '{{ item }}'
+  with_items:
+    - 'etc/midonet/mem-analytics.template'
+
+- name: Apply default mn-conf template (for all nodes)
+  shell: 'cat /etc/midonet/mem-analytics.template | mn-conf set -t default'
+  changed_when: False
+  delay: 10
+  register: midonet_insights_analytics_mn_conf_set_default_template
+  retries: 5
+  until: midonet_insights_analytics_mn_conf_set_default_template|success
