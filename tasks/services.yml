@@ -1,0 +1,7 @@
+---
+
+- name: 'ansible-midonet-insights-analytics.tasks.services: Start and enable MidoNet Analytics'
+  service:
+    enabled: True
+    name: 'midonet-analytics'
+    state: started

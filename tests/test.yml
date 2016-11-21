@@ -1,0 +1,51 @@
+---
+
+- hosts: all
+  become: True
+
+  pre_tasks:
+    - set_fact:
+        midonet_repo_mem_enabled: True
+        midonet_repo_mem_username: '{{ lookup("env", "MEM_USERNAME") }}'
+        midonet_repo_mem_password: '{{ lookup("env", "MEM_PASSWORD") }}'
+        midonet_cluster_mem_enabled: True
+        midonet_agent_mem_enabled: True
+      when: '{{ lookup("env", "MEM_ENABLED")|default(False) }}'
+
+  roles:
+    - role: midonet-repo
+
+    - role: zookeeper
+      zookeeper_hosts:
+        - '{{ inventory_hostname }}'
+
+    - role: cassandra
+      cassandra_hosts:
+        - '{{ inventory_hostname }}'
+      cassandra_max_heap_size: '512M'
+      cassandra_heap_newsize: '256M'
+
+    - role: elasticsearch
+    - role: logstash
+
+    - role: midonet-cluster
+      zookeeper_hosts:
+        - '{{ inventory_hostname }}'
+      cassandra_hosts:
+        - '{{ inventory_hostname }}'
+      midonet_cluster_max_heap_size: '512M'
+      midonet_cluster_heap_newsize: '256M'
+      midonet_cluster_flow_tracing_auth_ssl_enabled: False
+
+    - role: midonet-agent
+      zookeeper_hosts:
+        - '{{ inventory_hostname }}'
+      cassandra_hosts:
+        - '{{ inventory_hostname }}'
+      midonet_agent_max_heap_size: '512M'
+
+    - role: ansible-midonet-insights-analytics
+      zookeeper_hosts:
+        - '{{ inventory_hostname }}'
+      cassandra_hosts:
+        - '{{ inventory_hostname }}'

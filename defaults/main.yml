@@ -1,0 +1,19 @@
+---
+
+midonet_insights_analytics_clio_enabled: True
+midonet_insights_analytics_clio_service_udp_port: 5001
+midonet_insights_analytics_clio_service_encoding: 'binary'
+midonet_insights_analytics_clio_target_udp_endpoint: 'localhost:5000'
+midonet_insights_analytics_clio_data_fields: >-
+  [
+    "cookie", "devices", "host_uuid", "in_port", "in_tenant", "out_ports",
+    "out_tenant", "match_eth_src", "match_eth_dst", "match_ethertype",
+    "match_network_dst", "match_network_src", "match_network_proto",
+    "match_src_port", "match_dst_port", "action_drop", "action_arp_sip",
+    "action_arp_tip", "action_arp_op", "rules", "sim_result", "final_eth_src",
+    "final_eth_dst", "final_net_src", "final_net_dst", "final_transport_src",
+    "final_transport_dst", "timestamp", "type"
+  ]
+midonet_insights_analytics_calliope_enabled: True
+midonet_insights_analytics_calliope_service_ws_port: 8080
+midonet_insights_analytics_calliope_auth_ssl_enabled: True
