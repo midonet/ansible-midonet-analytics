@@ -47,5 +47,3 @@
     - role: ansible-midonet-insights-analytics
       zookeeper_hosts:
         - '{{ inventory_hostname }}'
-      cassandra_hosts:
-        - '{{ inventory_hostname }}'
