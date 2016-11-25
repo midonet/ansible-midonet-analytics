@@ -4,10 +4,6 @@
     that: zookeeper_hosts is defined
     msg: 'ansible-midonet-insights-analytics.tasks.configuration: This role requires "zookeeper_hosts" to be defined'
 
-- assert:
-    that: cassandra_hosts is defined
-    msg: 'ansible-midonet-insights-analytics.tasks.configuration: This role requires "cassandra_hosts" to be defined'
-
 - name: 'ansible-midonet-insights-analytics.tasks.configuration: Template MidoNet configuration file'
   template:
     dest: '/{{ item }}'
